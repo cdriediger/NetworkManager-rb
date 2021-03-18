@@ -1,0 +1,150 @@
+<section class="content-header">
+    <h1>
+    Switches
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Switches</li>
+    <li><a href="switches/create" >Create new Switch</a></li>
+    <li><a href="profiles/create" >Create new Profile</a></li>
+    <li><a href="vlans/create" >Create new VLAN</a></li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Manage Switches</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>IPv4</th>
+                <th>Location</th>
+                <th>Model</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% for  @switch in @switchList %>
+                    <tr>
+                    <td><%= @switch[:id] %></td>
+                    <td><a href=<%= "switches/#{@switch[:id]}" %> ><%= @switch[:name] %> </a> </td>
+                    <td><%= @switch[:ipv4] %></td>
+                    <td><%= @switch[:location] %></td>
+                    <td><%= @switch[:modelName] %></td>
+                    <td>
+                        <form method="get" action="/ui/switches/delete/<%= @switch[:id] %>">
+                            <label for="delete_button">
+                            <button type="submit" name="delete">Delete</button></label>
+                        </form>
+                    </td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Manage Profiles</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>VLAN</th>
+                <th>Tagged VLANS</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% for @profile in @profileList %>
+                    <% next if [1, 2].include?(@profile[:id])%>
+                    <tr>
+                    <td><%= @profile[:id] %></td>
+                    <td><a href=<%= "profiles/#{@profile[:id]}" %> ><%= @profile[:name] %> </a> </td>
+                    <td><%= @profile[:vlan] %></td>
+                    <td><%= @profile[:taggedVlans] %></td>
+                    <td>
+                        <form method="get" action="/ui/profiles/delete/<%= @profile[:id] %>">
+                            <label for="delete_button">
+                            <button type="submit" name="delete">Delete</button></label>
+                        </form>
+                    </td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+
+
+
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Manage VLANs</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>VLAN ID</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% for @vlan in @vlanList %>
+                    <tr>
+                    <td><%= @vlan[:id] %></td>
+                    <td><a href=<%= "vlans/#{@vlan[:id]}" %> ><%= @vlan[:name] %> </a> </td>
+                    <td><%= @vlan[:vlanid] %></td>
+                    <td>
+                        <form method="get" action="/ui/vlans/delete/<%= @vlan[:id] %>">
+                            <label for="delete_button">
+                            <button type="submit" name="delete">Delete</button></label>
+                        </form>
+                    </td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+
+</section>

@@ -1,0 +1,196 @@
+<section class="content-header">
+    <h1>
+    Switch <%= @switch[:name] %>
+    </h1>
+    <ol class="breadcrumb">
+    <li><a href='/ui/home'><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Switch <%= @switch[:name] %></li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Manage <%= @switch[:name] %></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>IPv4</th>
+                <th>Location</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td><%= @switch[:id] %></td>
+                <td><%= @switch[:name] %></td>
+                <td><%= @switch[:ipv4] %></td>
+                <td><%= @switch[:location] %></td>
+                <td><a href="/Switches/Update/@Model.sw.id">Update</a> | <a href="/Switches/Delete/@Model.sw.id" >Delete</td>
+                </tr>
+            </table>
+        </div>
+        <div class="box-header">
+            <h4 class="box-title">Ports:</h4>
+        </div>
+        <div class="box-body">
+            <table id="example2" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>VLAN ID</th>
+                <th>Tagged VLANs</th>
+                <th>State</th>
+                <th>LLDP Remote Device</th>
+                <th>Profile</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% @ports.each_pair do |id, port| %>
+                    <tr>
+                        <form method="post" action="/ui/switches/updateport/<%= @switch[:id] %>">
+                            <td><input type="text" class="form-control" name="portid" value="<%= id %>"></td>
+                            <td><input type="text" class="form-control" name="description" value="<%= port[:name]%>"></td>
+                            <td>
+                                <select class="form-control" id="vlan" name="vlan">
+                                    <% @vlans.each_pair do |vlanid, vlan| %>
+                                        <% if port[:profileid] %>
+                                            <% if vlanid == port[:untagged] %>
+                                                <option selected value="<%= vlanid %>" disabled><%= vlanid %> </option>
+                                            <% else %>
+                                                <option value="<%= vlanid %>" disabled><%= vlanid %> </option>
+                                            <% end %>
+                                        <% else %>
+                                            <% if vlanid == port[:untagged] %>
+                                                <option selected value="<%= vlanid %>" ><%= vlanid %> </option>
+                                            <% else %>
+                                                <option value="<%= vlanid %>" ><%= vlanid %> </option>
+                                            <% end %>
+                                        <% end %>
+                                    <% end %>
+                                </select>
+                            </td>
+                            <td>
+                            <% taggedVlans = "" %>
+                            <% @vlans.each_pair do |vlanid, vlan|
+                                if port[:tagged].include?(vlanid)
+                                    taggedVlans += vlanid
+                                    taggedVlans += ","
+                                end
+                            end %>
+                            <% if port[:profileid] %>
+                                <input type="text" class="form-control" name="tagged" value="<%= taggedVlans %>" disabled>
+                            <% else %>
+                                <input type="text" class="form-control" name="tagged" value="<%= taggedVlans %>">
+                            <% end %>
+                            </td>
+                            <% if port[:up] %>
+                                    <td style='color:green;'>up</td>
+                                <% else %>
+                                    <td style='color:red;'>down</td>
+                                <% end %>
+                            <td><input type="text" class="form-control" name="lldpSysName" value="<%= port[:lldpSysName] %>" readonly></td>
+                            <td>
+                                <select name="profile" id="profile">
+                                    <option value=" "> </option>
+                                    <% @profileList.each do |profile|%>
+                                        <% if port[:profileid] == profile[:id] %>
+                                            <%= "<option value=#{profile[:name]} selected>#{profile[:name]}</option>" %>
+                                        <% else %>
+                                            <%= "<option value=#{profile[:name]}>#{profile[:name]}</option>" %>
+                                        <% end %>
+                                    <% end %>
+                                </select>
+                            </td>
+                            <td>
+                                <label for="update_button">
+                                <button type="submit" name="update">Update</button></label>
+                            </td>
+                        </form>
+                    </tr>
+                <%end%>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Manage VLANs</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>VLAN ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% @vlans.each_pair do |vlanid, vlan| %>
+                    <tr>
+                    <td><%= vlanid %></td>
+                    <td><a href=<%= "vlans/#{vlan[:id]}" %> ><%= vlan[:name] %> </a> </td>
+                    <td>
+                        <form method="post" action="/ui/switches/<%= @switch[:id] %>/removevlan/<%= vlanid %>">
+                            <label for="delete_button">
+                            <button type="submit" name="delete">Delete</button></label>
+                        </form>
+                    </td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+        <div class="row">
+            <div class="col-xs-12">
+            <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Add VLAN</h3>
+            </div>
+            <tbody>
+                <tr>
+                <td>
+                <form method="post" action="/ui/switches/<%= @switch[:id] %>/addvlan">
+                    <select class="form-control" id="addvlan" name="addvlan">
+                        <option selected value="" > </option>
+                        <% @allVlans.each do |vlan| %>
+                            <% unless @vlans.keys.include?(vlan[:vlanid]) %>
+                                <option value="<%= vlan[:vlanid] %>" ><%= vlan[:name] %> </option>
+                            <% end %>
+                        <% end %>
+                    </select>
+                    <label for="add_button">
+                    <button type="submit" name="add">Add</button></label>
+                </form>
+                </td>            
+                </tr>
+            </tbody>
+        </div>
+
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+</section>
