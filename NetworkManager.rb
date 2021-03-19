@@ -44,7 +44,6 @@ get '/ui/home' do
         adapter = HPE_Aruba_Adapter.new(switch[:ipv4], switch[:username], switch[:password])
         switches_vlans.where(switchid: switch[:id]).delete()
         adapter.getVlans().each_pair do |vlanid, vlan|
-            puts vlans.where(vlanid: vlanid).count
             if vlans.where(vlanid: vlanid).count == 0
                 vlans.insert(name: vlan[:name], vlanid: vlanid)
             end

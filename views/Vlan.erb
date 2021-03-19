@@ -1,23 +1,30 @@
-<section class="content-header">
-    <h1>
-    VLAN <%= @vlan[:name] %>
-    </h1>
-    <ol class="breadcrumb">
-    <li><a href='/ui/home'><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">VLAN <%= @vlan[:name] %></li>
-    </ol>
-</section>
+<head>
+    <link href="<%= url('/base.css') %>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- Main Manu -->
+
+<nav>
+<h1>Menu</h1>
+<ul>
+    <li><a href="/ui/home">Home</a></li>
+    <li><a href="switches/create">Create new Switch</a></li>
+    <li><a href="profiles/create">Create new Profile</a></li>
+    <li><a href="vlans/create">Create new VLAN</a></li>
+</ul>
+</nav>
+
 <!-- Main content -->
-<section class="content">
+<section class="table-wrapper">
     <div class="row">
     <div class="col-xs-12">
         <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Manage <%= @vlan[:name] %></h3>
+            <h2 class="box-title">Manage <%= @vlan[:name] %></h2>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table class="fl-table">
             <thead>
             <tr>
                 <th>Id</th>
@@ -35,10 +42,10 @@
             </table>
         </div>
         <div class="box-header">
-            <h4 class="box-title">Switches:</h4>
+            <h2 class="box-title">Switches:</h2>
         </div>
         <div class="box-body">
-            <table id="example2" class="table table-bordered table-striped">
+            <table class="fl-table">
             <thead>
             <tr>
                 <th>ID</th>

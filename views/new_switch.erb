@@ -1,39 +1,35 @@
-<section class="content-header">
-    <h1>
-    Create new Switch
-    </h1>
-    <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Create new Switch</li>
-    </ol>
-</section>
+<head>
+    <link href="<%= url('/base.css') %>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- Main Manu -->
+
+<nav>
+<h1>Menu</h1>
+<ul>
+    <li><a href="/ui/home">Home</a></li>
+    <li><a href="/ui/switches/create">Create new Switch</a></li>
+    <li><a href="/ui/profiles/create">Create new Profile</a></li>
+    <li><a href="/ui/vlans/create">Create new VLAN</a></li>
+</ul>
+</nav>
 <!-- Main content -->
-<section class="content">
-    <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Create new Switch</h3>
-        </div>
-        <!-- /.box-header -->
-        
-        <div class="box-body">
-            <form method="post" action="/ui/switches/create">
-                <input type="text" class="form-control" name="name" value="Name">
-                <input type="text" class="form-control" name="ipv4" value="IPv4">
-                <input type="text" class="form-control" name="location" value="Location">
-                <input type="text" class="form-control" name="username" value="Username">
-                <input type="text" class="form-control" name="password" value="Password">
-                <label for="create_button">
-                <button type="submit" name="create">Create</button></label>
-            </form>
-            
-        </div>
-        <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-    </div>
-    <!-- /.col -->
-    </div>
-    <!-- /.row -->
+<section class="table-wrapper">
+
+    <h2 class="box-title">Create new Switch</h2>
+    <form method="post" action="/ui/switches/create">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" value="Name">
+        <label for="ipv4">IPv4 Address</label>
+        <input type="text" class="form-control" name="ipv4" value="IPv4">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" name="location" value="Location">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" value="Username">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" name="password" value="Password">
+
+        <button type="submit" name="create">Create</button>
+    </form>
+
 </section>

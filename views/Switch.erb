@@ -1,23 +1,29 @@
-<section class="content-header">
-    <h1>
-    Switch <%= @switch[:name] %>
-    </h1>
-    <ol class="breadcrumb">
-    <li><a href='/ui/home'><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Switch <%= @switch[:name] %></li>
-    </ol>
-</section>
+<head>
+    <link href="<%= url('/base.css') %>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- Main Manu -->
+
+<nav>
+<h1>Menu</h1>
+<ul>
+    <li><a href="/ui/home">Home</a></li>
+    <li><a href="/ui/switches/create">Create new Switch</a></li>
+    <li><a href="/ui/profiles/create">Create new Profile</a></li>
+    <li><a href="/ui/vlans/create">Create new VLAN</a></li>
+</ul>
+</nav>
 <!-- Main content -->
-<section class="content">
+<section class="table-wrapper">
     <div class="row">
     <div class="col-xs-12">
         <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Manage <%= @switch[:name] %></h3>
+            <h2 class="box-title">Manage <%= @switch[:name] %></h2>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table class="fl-table">
             <thead>
             <tr>
                 <th>Id</th>
@@ -38,10 +44,10 @@
             </table>
         </div>
         <div class="box-header">
-            <h4 class="box-title">Ports:</h4>
+            <h2 class="box-title">Ports:</h2>
         </div>
         <div class="box-body">
-            <table id="example2" class="table table-bordered table-striped">
+            <table class="fl-table">
             <thead>
             <tr>
                 <th>ID</th>
@@ -57,7 +63,7 @@
                 <% @ports.each_pair do |id, port| %>
                     <tr>
                         <form method="post" action="/ui/switches/updateport/<%= @switch[:id] %>">
-                            <td><input type="text" class="form-control" name="portid" value="<%= id %>"></td>
+                            <td><%= id %></td>
                             <td><input type="text" class="form-control" name="description" value="<%= port[:name]%>"></td>
                             <td>
                                 <select class="form-control" id="vlan" name="vlan">
@@ -93,9 +99,9 @@
                             <% end %>
                             </td>
                             <% if port[:up] %>
-                                    <td style='color:green;'>up</td>
+                                    <td class="fl-table-up">up</td>
                                 <% else %>
-                                    <td style='color:red;'>down</td>
+                                    <td class="fl-table-down">down</td>
                                 <% end %>
                             <td><input type="text" class="form-control" name="lldpSysName" value="<%= port[:lldpSysName] %>" readonly></td>
                             <td>
@@ -131,11 +137,11 @@
     <div class="col-xs-12">
         <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Manage VLANs</h3>
+            <h2 class="box-title">Manage VLANs</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table class="fl-table">
             <thead>
             <tr>
                 <th>VLAN ID</th>
@@ -166,7 +172,7 @@
             <div class="col-xs-12">
             <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Add VLAN</h3>
+                <h2 class="box-title">Add VLAN</h3>
             </div>
             <tbody>
                 <tr>
@@ -194,3 +200,4 @@
     <!-- /.row -->
 
 </section>
+</body>

@@ -1,37 +1,31 @@
-<section class="content-header">
-    <h1>
-    Create new Profile
-    </h1>
-    <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Create new Profile</li>
-    </ol>
-</section>
+<head>
+    <link href="<%= url('/base.css') %>" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- Main Manu -->
+
+<nav>
+<h1>Menu</h1>
+<ul>
+    <li><a href="/ui/home">Home</a></li>
+    <li><a href="/ui/switches/create">Create new Switch</a></li>
+    <li><a href="/ui/profiles/create">Create new Profile</a></li>
+    <li><a href="/ui/vlans/create">Create new VLAN</a></li>
+</ul>
+</nav>
 <!-- Main content -->
-<section class="content">
-    <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Create new Profile</h3>
-        </div>
-        <!-- /.box-header -->
-        
-        <div class="box-body">
-            <form method="post" action="/ui/profiles/create">
-                <input type="text" class="form-control" name="name" value="Name">
-                <input type="text" class="form-control" name="vlan" value="VLAN">
-                <input type="text" class="form-control" name="taggedVlans" value="tagged VLANs">
-                <label for="create_button">
-                <button type="submit" name="create">Create</button></label>
-            </form>
+<section class="table-wrapper">
+
+    <h2 class="box-title">Create new Profile</h2>
+        <form method="post" action="/ui/profiles/create">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" value="Name">
+            <label for="vlan">Untagged VLAN ID</label>
+            <input type="text" class="form-control" name="vlan" value="VLAN">
+            <label for="taggedVlans">Tagged VLANs</label>
+            <input type="text" class="form-control" name="taggedVlans" value="tagged VLANs">
             
-        </div>
-        <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-    </div>
-    <!-- /.col -->
-    </div>
-    <!-- /.row -->
+            <button type="submit" name="create">Create</button>
+        </form>
+
 </section>
